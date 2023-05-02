@@ -26,7 +26,18 @@ const chatIcon = document.createElement("img");
 chatIcon.setAttribute("src", CHAT_ICON_SRC);
 chatIcon.style.width = "100%";
 chatIcon.style.height = "100%";
+chatIcon.style.objectFit = "contain";
+
+
+const closeIcon = document.createElement("img");
+closeIcon.setAttribute("src", CHAT_CLOSE_ICON_SRC);
+closeIcon.style.width = "100%";
+closeIcon.style.height = "100%";
+closeIcon.style.objectFit = "contain";
+closeIcon.style.display = "none"; // Do not display in first load
+
 bubble.append(chatIcon);
+bubble.append(closeIcon);
 
 const notification = document.createElement("div");
 notification.style.position = "absolute";
@@ -67,10 +78,12 @@ bubble.addEventListener("click", () => {
 
     if (chatWindow.style.display === "none") {
         chatWindow.style.display = "flex";
-        chatBubbleIcon.innerHTML = buttonClose;
+        chatIcon.style.display = "none";
+        closeIcon.style.display = "block";
     } else {
         chatWindow.style.display = "none";
-        chatBubbleIcon.innerHTML = buttonLogo;
+        closeIcon.style.display = "none";
+        chatIcon.style.display = "block";
     }
 });
 
