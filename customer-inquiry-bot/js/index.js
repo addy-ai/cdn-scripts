@@ -2,6 +2,7 @@ const CHAT_BUBBLE_SIZE = 60;
 const PRIMARY_COLOR = "#745DDE";
 const CHAT_ICON_SRC = "https://i.imgur.com/lgFKiDS.png";
 const CHAT_CLOSE_ICON_SRC = "https://i.imgur.com/hxm4A15.png";
+let scriptLoaded = false;
 
 const bubble = document.createElement("div");
 bubble.style.backgroundColor = PRIMARY_COLOR;
@@ -12,7 +13,7 @@ bubble.style.right = "20px";
 bubble.style.left = "none";
 bubble.style.width = `${CHAT_BUBBLE_SIZE}px`;
 bubble.style.height = `${CHAT_BUBBLE_SIZE}px`;
-bubble.style.borderRadius = `${Math.round(CHAT_BUBBLE_SIZE/2)}px`;
+bubble.style.borderRadius = `${Math.round(CHAT_BUBBLE_SIZE / 2)}px`;
 bubble.style.boxShadow = "rgba(0, 0, 0, 0.24) 0px 3px 8px";
 bubble.setAttribute("id", "addy-chat-bubble");
 
@@ -100,7 +101,7 @@ async function initialize() {
       ></iframe>`;
     document.body.append(chatWindow);
 
-   await getChatBotData();
+    await getChatBotData();
 }
 
 async function getChatBotData() {
@@ -108,9 +109,30 @@ async function getChatBotData() {
     document.body.append(bubble);
 }
 
+
 window.onload = async function () {
-    await initialize();
+    try {
+        await initialize();
+        scriptLoaded = true;
+        console.log("Addy AI Chatbot successfully loaded.");
+    } catch (error) {
+        console.error("Error:", error);
+    }
+
 }
+
+// Use the window.onerror event handler to attempt loading the script again if an error occurs.
+window.onerror = async function (message, source, lineno, colno, error) {
+    if (!scriptLoaded) {
+        try {
+            await initialize();
+            scriptLoaded = true;
+            console.log("CDN script loaded successfully after an error.");
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+};
 
 const screenSizeQuery = window.matchMedia("(min-width: 550px)");
 
