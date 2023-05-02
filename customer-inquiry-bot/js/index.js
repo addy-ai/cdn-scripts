@@ -24,15 +24,15 @@ bubble.style.transition = "0.3s all ease";
 
 const chatIcon = document.createElement("img");
 chatIcon.setAttribute("src", CHAT_ICON_SRC);
-chatIcon.style.width = "100%";
-chatIcon.style.height = "100%";
+chatIcon.style.width = "70%";
+chatIcon.style.height = "70%";
 chatIcon.style.objectFit = "contain";
 
 
 const closeIcon = document.createElement("img");
 closeIcon.setAttribute("src", CHAT_CLOSE_ICON_SRC);
-closeIcon.style.width = "100%";
-closeIcon.style.height = "100%";
+closeIcon.style.width = "70%";
+closeIcon.style.height = "70%";
 closeIcon.style.objectFit = "contain";
 closeIcon.style.display = "none"; // Do not display in first load
 
