@@ -1,0 +1,125 @@
+const CHAT_BUBBLE_SIZE = 60;
+const PRIMARY_COLOR = "#745DDE";
+const CHAT_ICON_SRC = "https://i.imgur.com/lgFKiDS.png";
+const CHAT_CLOSE_ICON_SRC = "https://i.imgur.com/hxm4A15.png";
+
+const bubble = document.createElement("div");
+bubble.style.backgroundColor = PRIMARY_COLOR;
+bubble.style.position = "fixed";
+bubble.style.cursor = "pointer";
+bubble.style.bottom = "25px";
+bubble.style.right = "20px";
+bubble.style.left = "none";
+bubble.style.width = `${CHAT_BUBBLE_SIZE}px`;
+bubble.style.height = `${CHAT_BUBBLE_SIZE}px`;
+bubble.style.borderRadius = `${Math.round(CHAT_BUBBLE_SIZE/2)}px`;
+bubble.style.boxShadow = "rgba(0, 0, 0, 0.24) 0px 3px 8px";
+bubble.setAttribute("id", "addy-chat-bubble");
+
+
+bubble.style.zIndex = 999999999;
+bubble.style.transition = "0.3s all ease";
+
+
+const chatIcon = document.createElement("img");
+chatIcon.setAttribute("src", CHAT_ICON_SRC);
+chatIcon.style.width = "100%";
+chatIcon.style.height = "100%";
+bubble.append(chatIcon);
+
+const notification = document.createElement("div");
+notification.style.position = "absolute";
+notification.style.top = "-7px";
+notification.style.right = "-1px";
+notification.style.width = "20px";
+notification.style.height = "20px";
+notification.style.display = "flex";
+notification.style.alignItems = "center";
+notification.style.justifyContent = "center";
+notification.style.borderRadius = "50%";
+notification.style.backgroundColor = "#FA3E3E";
+notification.style.color = "#FFFFFF";
+notification.style.zIndex = 99999999;
+notification.style.fontSize = "12px";
+notification.innerHTML = "1";
+bubble.append(notification);
+
+let isFirstClick = true;
+
+function handleSmallScreens() {
+    window.innerHeight < 600 && (chatWindow.style.height = "70vh");
+}
+
+// Event listeners
+bubble.addEventListener("mouseenter", () => {
+    bubble.style.transform = "scale(1.05)";
+});
+bubble.addEventListener("mouseleave", () => {
+    bubble.style.transform = "scale(1)";
+});
+
+bubble.addEventListener("click", () => {
+    if (isFirstClick) {
+        isFirstClick = false;
+        notification.style.display = "none";
+    }
+
+    if (chatWindow.style.display === "none") {
+        chatWindow.style.display = "flex";
+        chatBubbleIcon.innerHTML = buttonClose;
+    } else {
+        chatWindow.style.display = "none";
+        chatBubbleIcon.innerHTML = buttonLogo;
+    }
+});
+
+const chatWindow = document.createElement("div");
+chatWindow.setAttribute("id", "chat-bubble-window");
+chatWindow.style.position = "fixed";
+chatWindow.style.flexDirection = "column";
+chatWindow.style.justifyContent = "space-between";
+chatWindow.style.bottom = "80px";
+chatWindow.style.width = "85vw";
+chatWindow.style.height = "70vh";
+chatWindow.style.boxShadow = "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px";
+chatWindow.style.display = "none";
+chatWindow.style.borderRadius = "10px";
+chatWindow.style.zIndex = 99999999;
+chatWindow.style.overflow = "hidden";
+window.addEventListener("resize", handleSmallScreens);
+handleSmallScreens();
+
+const scriptTag = document.currentScript;
+
+async function initialize() {
+    chatWindow.innerHTML = `<iframe
+      src="https://namdcatpkk.github.io/03eb8544-57df-4c22-b1a1-80a415f8ad1f/"
+      width="100%"
+      height="100%"
+      frameborder="0"
+      ></iframe>`;
+    document.body.append(chatWindow);
+
+   await getChatBotData();
+}
+
+async function getChatBotData() {
+    // Make a fetch request.
+    document.body.append(bubble);
+}
+
+window.onload = async function () {
+    await initialize();
+}
+
+const screenSizeQuery = window.matchMedia("(min-width: 550px)");
+
+function handleScreenSizeChange(event) {
+    if (event.matches) {
+        chatWindow.style.height = "600px";
+        chatWindow.style.width = "430px";
+    }
+}
+
+screenSizeQuery.addEventListener("change", handleScreenSizeChange);
+handleScreenSizeChange(screenSizeQuery);
