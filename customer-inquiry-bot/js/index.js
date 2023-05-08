@@ -2,6 +2,8 @@ const CHAT_BUBBLE_SIZE = 60;
 const PRIMARY_COLOR = "#745DDE";
 const CHAT_ICON_SRC = "https://i.imgur.com/lgFKiDS.png";
 const CHAT_CLOSE_ICON_SRC = "https://i.imgur.com/hxm4A15.png";
+const scriptTag = document.currentScript;
+
 let scriptLoaded = false;
 
 const bubble = document.createElement("div");
@@ -15,6 +17,9 @@ bubble.style.width = `${CHAT_BUBBLE_SIZE}px`;
 bubble.style.height = `${CHAT_BUBBLE_SIZE}px`;
 bubble.style.borderRadius = `${Math.round(CHAT_BUBBLE_SIZE / 2)}px`;
 bubble.style.boxShadow = "rgba(0, 0, 0, 0.24) 0px 3px 8px";
+bubble.style.display = "flex";
+bubble.style.alignItems = "center";
+bubble.style.justifyContent = "center";
 bubble.setAttribute("id", "addy-chat-bubble");
 
 
@@ -24,15 +29,15 @@ bubble.style.transition = "0.3s all ease";
 
 const chatIcon = document.createElement("img");
 chatIcon.setAttribute("src", CHAT_ICON_SRC);
-chatIcon.style.width = "70%";
-chatIcon.style.height = "70%";
+chatIcon.style.width = "60%";
+chatIcon.style.height = "60%";
 chatIcon.style.objectFit = "contain";
 
 
 const closeIcon = document.createElement("img");
 closeIcon.setAttribute("src", CHAT_CLOSE_ICON_SRC);
-closeIcon.style.width = "70%";
-closeIcon.style.height = "70%";
+closeIcon.style.width = "40%";
+closeIcon.style.height = "40%";
 closeIcon.style.objectFit = "contain";
 closeIcon.style.display = "none"; // Do not display in first load
 
@@ -92,7 +97,7 @@ chatWindow.setAttribute("id", "chat-bubble-window");
 chatWindow.style.position = "fixed";
 chatWindow.style.flexDirection = "column";
 chatWindow.style.justifyContent = "space-between";
-chatWindow.style.bottom = "80px";
+chatWindow.style.bottom = "95px";
 chatWindow.style.width = "85vw";
 chatWindow.style.height = "70vh";
 chatWindow.style.boxShadow = "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px";
@@ -100,21 +105,21 @@ chatWindow.style.display = "none";
 chatWindow.style.borderRadius = "10px";
 chatWindow.style.zIndex = 99999999;
 chatWindow.style.overflow = "hidden";
+chatWindow.style.right = "20px";
+chatWindow.style.left = "none";
 window.addEventListener("resize", handleSmallScreens);
 handleSmallScreens();
 
 
 
 async function initialize() {
-    const scriptTag = document.currentScript;
     chatWindow.innerHTML = `<iframe
-      src="https://addy-ai.github.io/customer-inquiry-bot/?publicId=${scriptTag.id}"
+      src="https://addy-ai.github.io/customer-inquiry-bot/?publicId=${scriptTag.id}&header=none"
       width="100%"
       height="100%"
       frameborder="0"
       ></iframe>`;
     document.body.append(chatWindow);
-
     await getChatBotData();
 }
 
@@ -123,8 +128,7 @@ async function getChatBotData() {
     document.body.append(bubble);
 }
 
-
-window.onload = async function () {
+window.addEventListener("load", async function() {
     try {
         await initialize();
         scriptLoaded = true;
@@ -132,8 +136,7 @@ window.onload = async function () {
     } catch (error) {
         console.error("Error:", error);
     }
-
-}
+});
 
 // Use the window.onerror event handler to attempt loading the script again if an error occurs.
 window.onerror = async function (message, source, lineno, colno, error) {
@@ -153,7 +156,7 @@ const screenSizeQuery = window.matchMedia("(min-width: 550px)");
 function handleScreenSizeChange(event) {
     if (event.matches) {
         chatWindow.style.height = "600px";
-        chatWindow.style.width = "430px";
+        chatWindow.style.width = "480px";
     }
 }
 
