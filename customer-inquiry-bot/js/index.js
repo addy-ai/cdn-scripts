@@ -103,11 +103,12 @@ chatWindow.style.overflow = "hidden";
 window.addEventListener("resize", handleSmallScreens);
 handleSmallScreens();
 
-const scriptTag = document.currentScript;
+
 
 async function initialize() {
+    const scriptTag = document.currentScript;
     chatWindow.innerHTML = `<iframe
-      src="https://namdcatpkk.github.io/03eb8544-57df-4c22-b1a1-80a415f8ad1f/"
+      src="https://addy-ai.github.io/customer-inquiry-bot/?publicId=${scriptTag.id}"
       width="100%"
       height="100%"
       frameborder="0"
