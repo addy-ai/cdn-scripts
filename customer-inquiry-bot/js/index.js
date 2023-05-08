@@ -107,6 +107,7 @@ chatWindow.style.zIndex = 99999999;
 chatWindow.style.overflow = "hidden";
 chatWindow.style.right = "20px";
 chatWindow.style.left = "none";
+chatWindow.style.backgroundColor = "#FFFFFF";
 window.addEventListener("resize", handleSmallScreens);
 handleSmallScreens();
 
