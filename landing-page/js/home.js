@@ -11,7 +11,7 @@ window.addEventListener("load", function () {
 /**
  * Request Access Procedure
  */
-const ADDY_API_ENDPOINT = "https://us-central1-hey-addy-chatgpt.cloudfunctions.net/api";
+const ENDPOINT = "https://us-central1-hey-addy-chatgpt.cloudfunctions.net/api";
 
 
 function updateStylesForButtomRequestAccessView(input, button) {
@@ -29,6 +29,7 @@ function updateStylesForButtomRequestAccessView(input, button) {
     button.style.position = "absolute";
     button.style.zIndex = "9999";
     button.style.border = "1px solid transparent";
+    button.style.right = "1px";
     // Make button height 84% of the input height
     button.style.height = `${inputHeight * 0.84}px`;
 
@@ -138,7 +139,7 @@ async function onRequestAccessPressed(email, button) {
  * @return {Objet} An Object containing a success boolean and a message
  */
 async function callRequestAccessAPI(email) {
-    return await fetch(`${ADDY_API_ENDPOINT}/user/request-access`, {
+    return await fetch(`${ENDPOINT}/user/request-access`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
