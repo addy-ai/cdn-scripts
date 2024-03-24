@@ -11,7 +11,7 @@ window.addEventListener("load", function () {
 /**
  * Request Access Procedure
  */
-const REQUEST_ACCESS_API_ENDPOINT = "";
+const ADDY_API_ENDPOINT = "https://us-central1-hey-addy-chatgpt.cloudfunctions.net/api";
 
 
 function updateStylesForButtomRequestAccessView(input, button) {
@@ -138,7 +138,7 @@ async function onRequestAccessPressed(email, button) {
  * @return {Objet} An Object containing a success boolean and a message
  */
 async function callRequestAccessAPI(email) {
-    return await fetch(REQUEST_ACCESS_API_ENDPOINT, {
+    return await fetch(`${ADDY_API_ENDPOINT}/user/request-access`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
