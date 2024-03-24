@@ -80,14 +80,14 @@ function bottomSectionRequestAccessProcedure(bottomSection) {
         // Add Click Event Listener to the Submit Button
         submitButton.addEventListener('click', function (event) {
             event.preventDefault();
-            onRequestAccessPressed(emailInput.value);
+            onRequestAccessPressed(emailInput.value, submitButton);
         });
 
         // Add enter key Event Listener to the Email Input Field
         emailInput.addEventListener('keydown', function (event) {
             if (event.keyCode === 13) { // Check if 'Enter' was pressed
                 event.preventDefault();
-                onRequestAccessPressed(emailInput.value);
+                onRequestAccessPressed(emailInput.value, submitButton);
             }
         });
 
@@ -98,17 +98,28 @@ function bottomSectionRequestAccessProcedure(bottomSection) {
 
 }
 
+
 /**
  * @desc Defines what happen when request access button in clicked
  * @param {String} email
  */
-async function onRequestAccessPressed(email) {
+async function onRequestAccessPressed(email, button) {
     if (!(email && email.length > 3)) {
-        // Email is less than 3 characters. invalid email error
+        // Email is less than 3 characters.
+        // TODO: invalid email error
         return;
     }
     // Emil exists and is over 3 characters
+    // Add feedback to button. Disable button and change text to "Requesting..."
+    const orginalButtonText = button.value;
+    button.disabled = true;
+    button.value = "Requesting...";
+    // Call the request access API
     const requestAccess = await callRequestAccessAPI(email);
+    // Reset the button
+    button.disabled = false;
+    button.value = orginalButtonText;
+    // Check if request access was successful
     let message = requestAccess.message;
     if (requestAccess && requestAccess.success) {
         // Show success pop up
@@ -160,7 +171,8 @@ async function callRequestAccessAPI(email) {
  * @param {String} message 
  */
 function showSuccessPopUp(message) {
-
+    // Show simple alert for now
+    alert(message);
 }
 
 /**
@@ -168,5 +180,6 @@ function showSuccessPopUp(message) {
  * @param {String} message 
  */
 function showErrorPopUp(message) {
-
+    // Show simple alert for now
+    alert(message);
 }
