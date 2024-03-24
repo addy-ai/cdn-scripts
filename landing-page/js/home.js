@@ -150,7 +150,6 @@ async function callRequestAccessAPI(email) {
         .then(data => {
             const message = data.message;
             if (data.success) {
-                console.log(message);
                 return {
                     "success": true,
                     "message": message,
@@ -159,7 +158,6 @@ async function callRequestAccessAPI(email) {
                 throw new Error(message);
             }
         }).catch((error) => {
-            console.error('Error:', error);
             return {
                 "success": false,
                 "message": error,
