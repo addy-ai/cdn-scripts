@@ -29,7 +29,6 @@ function updateStylesForButtomRequestAccessView(input, button) {
     button.style.position = "absolute";
     button.style.zIndex = "9999";
     button.style.border = "1px solid transparent";
-    button.style.right = "5px";
     // Make button height 84% of the input height
     button.style.height = `${inputHeight * 0.84}px`;
 
