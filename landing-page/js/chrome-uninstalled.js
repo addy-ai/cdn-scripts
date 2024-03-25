@@ -1,4 +1,4 @@
-const uid = null;
+let uid = null;
 const ENDPOINT = "https://us-central1-hey-addy-chatgpt.cloudfunctions.net/api";
 
 function createFeedbackForm() {
