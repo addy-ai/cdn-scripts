@@ -1,3 +1,6 @@
+const uid = null;
+const ENDPOINT = "https://us-central1-hey-addy-chatgpt.cloudfunctions.net/api";
+
 function createFeedbackForm() {
     // Style block
     const style = document.createElement('style');
@@ -184,6 +187,7 @@ function populateFormReasonsAndHandleInteractions() {
         }
 
         console.log('Submitted feedback:', feedback);
+        submitFeedback(feedback);
     });
 }
 
@@ -197,9 +201,45 @@ function showAndHideErrorText(text) {
     }, 7000);
 }
 
+function submitFeedback(feedback) {
+    // fetch
+    fetch(`${ENDPOINT}/user/feedback`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            feedback: feedback,
+            uid: uid
+        }),
+    })
+        .then((response) => response.json())
+        .then((response) => {
+            if (response.success) {
+                // Show the success responses
+                alert("Thank you for your feedback. We will use it to improve Addy AI");
+            }
+            // Not successful
+            alert("Sorry something went wrong. Please try again");
+        })
+        .catch((error) => {
+            alert("Sorry something went wrong. Please try again");
+        });
+
+}
+
 
 
 document.addEventListener('DOMContentLoaded', function () {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const visitSource = urlParams.get("src");
+
+    let formattedVisitSource = visitSource == null ? "unknown" : visitSource;
+    formattedVisitSource = formattedVisitSource.replaceAll(/\.|#|\$|[|]/g, ""); // replace illegal characters
+
+    uid = formattedVisitSource;
+
     const feedbackForm = createFeedbackForm();
 
     // Append the feedback form to the container
