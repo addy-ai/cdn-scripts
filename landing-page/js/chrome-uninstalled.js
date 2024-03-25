@@ -228,9 +228,8 @@ function submitFeedback(feedback) {
 
 }
 
+window.addEventListener("load", function () {
 
-
-document.addEventListener('DOMContentLoaded', function () {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const visitSource = urlParams.get("src");
@@ -248,4 +247,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Populate Reason, and handle interactions like clicking, etc
     populateFormReasonsAndHandleInteractions();
+
 });
