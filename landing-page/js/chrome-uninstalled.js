@@ -230,22 +230,27 @@ function submitFeedback(feedback) {
 
 window.addEventListener("load", function () {
 
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const visitSource = urlParams.get("src");
+    // Wait 1 second before showing the feedback form
+    setTimeout(() => {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const visitSource = urlParams.get("src");
 
-    let formattedVisitSource = visitSource == null ? "unknown" : visitSource;
-    formattedVisitSource = formattedVisitSource.replaceAll(/\.|#|\$|[|]/g, ""); // replace illegal characters
+        let formattedVisitSource = visitSource == null ? "unknown" : visitSource;
+        formattedVisitSource = formattedVisitSource.replaceAll(/\.|#|\$|[|]/g, ""); // replace illegal characters
 
-    uid = formattedVisitSource;
+        uid = formattedVisitSource;
 
-    const feedbackForm = createFeedbackForm();
+        const feedbackForm = createFeedbackForm();
 
-    // Append the feedback form to the container
-    const feedbackFormContainer = document.querySelector(".addy-feedback-form-container");
-    feedbackFormContainer.appendChild(feedbackForm);
+        // Append the feedback form to the container
+        const feedbackFormContainer = document.querySelector(".addy-feedback-form-container");
+        feedbackFormContainer.appendChild(feedbackForm);
 
-    // Populate Reason, and handle interactions like clicking, etc
-    populateFormReasonsAndHandleInteractions();
+        // Populate Reason, and handle interactions like clicking, etc
+        populateFormReasonsAndHandleInteractions();
+    }, 1000);
+
+
 
 });
