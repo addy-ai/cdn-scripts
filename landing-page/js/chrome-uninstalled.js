@@ -251,6 +251,4 @@ window.addEventListener("load", function () {
         populateFormReasonsAndHandleInteractions();
     }, 1000);
 
-
-
 });
