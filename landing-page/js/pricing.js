@@ -2,21 +2,13 @@ function redirectToUtilsRoute() {
     // Get current page's url
     var currentUrl = window.location.href;
 
-    // Create a new URL object
-    var url = new URL(currentUrl);
-
-    // Replace 'addy' with 'utils' in hostname
-    var newHost = url.hostname.replace('addy', 'utils');
-
-    // Construct new url considering all parts of the current URL
-    var newUrl = url.protocol + "//" +
-        (url.username ? url.username + (url.password ? ":" + url.password : "") + "@" : "") +
-        newHost +
-        (url.port ? ":" + url.port : "") +
-        url.pathname +
-        (url.search ? url.search : "") +
-        (url.hash ? url.hash : "");
-
+    // Split current location by "/pricing"
+    var urlParts = currentUrl.split("/pricing");
+    // Get the second part of the split
+    var secondPart = urlParts[1];
+    const newFirstPart = "https://utils.addy.so/pricing";
+    // Construct new url
+    var newUrl = newFirstPart + secondPart;
     // Redirect to new url
     window.location.href = newUrl;
 }
