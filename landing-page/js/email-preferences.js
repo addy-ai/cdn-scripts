@@ -22,10 +22,13 @@ function applyBasicStyles() {
         .checkbox-item label {
             font-weight: bold;
             margin-right: 5px;
+            font-size: 17px;
         }
         .checkbox-item p {
-            font-size: 14px;
             color: #666;
+            font-size: 15px;
+            margin-left: 25px;
+            padding-top: 5px;
         }
         .cancel-button {
             border-style: solid;
@@ -42,6 +45,7 @@ function applyBasicStyles() {
             color: white;
             cursor: pointer;
             border-radius: 20px;
+            font-size: 17px;
         }
         button:hover {
             text-decoration: underline;
