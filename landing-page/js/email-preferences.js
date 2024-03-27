@@ -171,10 +171,17 @@ async function updateEmailPreferences(uid, emailPreferences) {
 
 // When window is loaded
 window.onload = async function () {
+    const unsubscribeParent = document.querySelector(".addy-email-preferences-container");
+    if (!unsubscribeParent) {
+        return;
+    }
     // Get uid from URL params
     const urlParams = new URLSearchParams(window.location.search);
     uid = urlParams.get('uid')
     if (!uid) {
+        unsubscribeParent.innerHTML = `
+            <p>No user provided to find email preferences for</p>
+        `
         return;
     }
     // UID exists
@@ -191,8 +198,5 @@ window.onload = async function () {
     // Call renderUnsubscribePage to build the page
     const unsubscribeContainer = renderUnsubscribePage(emailPreferences["emailPreferences"],
         emailPreferences["emailKinds"]);
-    const unsubscribeParent = document.querySelector(".addy-email-preferences-container");
-    if (unsubscribeParent) {
-        unsubscribeParent.appendChild(unsubscribeContainer);
-    }
+    unsubscribeParent.appendChild(unsubscribeContainer);
 };
