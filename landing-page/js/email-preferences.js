@@ -100,6 +100,10 @@ function renderUnsubscribePage(emailPreferences, emailKinds) {
     const container = document.createElement('div');
     container.classList.add('unsubscribe-container');
 
+    const title = document.createElement('h3');
+    title.textContent = 'Update your email preferences';
+    container.appendChild(title);
+
     emailKinds.forEach(emailKind => {
         container.appendChild(createCheckbox(emailKind, emailPreferences));
     });
