@@ -76,6 +76,11 @@ function createCheckbox(emailKind, emailPreferences) {
     checkbox.id = emailKind.id;
     checkbox.checked = emailPreferences[emailKind.id] || false;
 
+    // If the item is "important-updates", disable it
+    if (emailKind.id === 'important-account-updates') {
+        checkbox.disabled = true;
+    }
+
     // Event listener to update emailPreferences when checkbox state changes
     checkbox.addEventListener('change', function () {
         emailPreferences[this.id] = this.checked;
