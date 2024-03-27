@@ -63,7 +63,7 @@ function applyBasicStyles() {
 }
 
 // Function to create a checkbox element for each email kind
-function createCheckbox(emailKind) {
+function createCheckbox(emailKind, emailPreferences) {
     let checkboxWrapper = document.createElement('div');
     checkboxWrapper.classList.add('checkbox-item');
 
@@ -97,7 +97,7 @@ function renderUnsubscribePage(emailPreferences, emailKinds) {
     container.classList.add('unsubscribe-container');
 
     emailKinds.forEach(emailKind => {
-        container.appendChild(createCheckbox(emailKind));
+        container.appendChild(createCheckbox(emailKind, emailPreferences));
     });
 
     const saveButton = document.createElement('button');
