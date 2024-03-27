@@ -200,6 +200,7 @@ window.onload = async function () {
     }
 
     // Call renderUnsubscribePage to build the page
+    unsubscribeParent.style.height = "100%";
     const unsubscribeContainer = renderUnsubscribePage(emailPreferences["emailPreferences"],
         emailPreferences["emailKinds"]);
     unsubscribeParent.appendChild(unsubscribeContainer);
