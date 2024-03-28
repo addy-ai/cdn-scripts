@@ -184,11 +184,7 @@ function getMiddleMessage(message) {
     } else if (message.toLowerCase().includes("something went wrong")) {
         return "Please try again later";
     } else {
-        return `We'll be in touch soon. In the meantime,
-        <a href="https://chromewebstore.google.com/detail/addy-ai-chatgpt-email-ass/gldadickgmgciakdljkcpbdepehlilfn" target="_blank"
-        style="font-weight: bold; text-decoration: underline; color: #4A4B5B;">
-        download the Addy Chrome Extension
-        <a/> to get a glimpse of what's coming.`;
+        return `We'll be in touch soon. In the meantime, <a href="https://chromewebstore.google.com/detail/addy-ai-chatgpt-email-ass/gldadickgmgciakdljkcpbdepehlilfn" target="_blank" style="font-weight: bold; text-decoration: underline; color: #4A4B5B;">download the Addy Chrome Extension<a/> to get a glimpse of what's coming.`;
     }
 }
 
@@ -210,6 +206,21 @@ async function showModal(message, middleText, buttonText) {
     if (popUpShown) return;
 
     const shareDiv = document.createElement("div");
+    shareDiv.style.width = "420px";
+    shareDiv.style.height = "fit-content";
+    shareDiv.style.justifyContent = "center";
+    shareDiv.style.alignItems = "center";
+    shareDiv.style.position = "fixed";
+    shareDiv.style.right = "0";
+    shareDiv.style.left = "0";
+    shareDiv.style.bottom = "0";
+    shareDiv.style.top = "0";
+    shareDiv.style.margin = "auto";
+    shareDiv.style.zIndex = "99999";
+    shareDiv.style.display = "block";
+    shareDiv.style.padding = "20px";
+
+   
     shareDiv.innerHTML = modalHTML(message, buttonText, middleText);
     
     const hidePage = document.createElement("div");
