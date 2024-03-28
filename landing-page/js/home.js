@@ -12,7 +12,7 @@ window.addEventListener("load", function () {
  * Request Access Procedure
  */
 const ENDPOINT = "https://us-central1-hey-addy-chatgpt.cloudfunctions.net/api";
-
+let popUpShown = false;
 
 function updateStylesForButtomRequestAccessView(input, button) {
 
@@ -125,11 +125,11 @@ async function onRequestAccessPressed(email, button) {
     if (requestAccess && requestAccess.success) {
         // Show success pop up
         message = message || "Successful"; // Default to successful if message is undefined
-        showSuccessPopUp(message);
+        showPopUp(message);
     } else {
         // Show error pop up
         message = message || "Something went wrong";
-        showErrorPopUp(message);
+        showPopUp(message);
     }
 }
 
@@ -166,19 +166,115 @@ async function callRequestAccessAPI(email) {
 }
 
 /**
- * @desc Displays a success pop up on the page
+ * @desc Displays a pop up on the page
  * @param {String} message 
  */
-function showSuccessPopUp(message) {
+function showPopUp(message) {
     // Show simple alert for now
-    alert(message);
+    const middleText = getMiddleMessage(message);
+    const buttonText = getButtonText(message);
+    showModal(message, middleText, buttonText);
 }
 
-/**
- * @des Displays an error pop up on the page
- * @param {String} message 
- */
-function showErrorPopUp(message) {
-    // Show simple alert for now
-    alert(message);
+function getMiddleMessage(message) {
+    if (!message) return "";
+    // convert to lower case
+    if (message.toLowerCase().includes("invalid email")) {
+        return "Please enter a valid email address";
+    } else if (message.toLowerCase().includes("something went wrong")) {
+        return "Please try again later";
+    } else {
+        return `We'll be in touch soon. In the meantime,
+        <a href="https://chromewebstore.google.com/detail/addy-ai-chatgpt-email-ass/gldadickgmgciakdljkcpbdepehlilfn" target="_blank"
+        style="font-weight: bold; text-decoration: underline; color: #4A4B5B;">
+        download the Addy Chrome Extension
+        <a/> to get a glimpse of what's coming.`;
+    }
+}
+
+function getButtonText(message) {
+    if (!message) return "Close";
+    // convert to lower case
+    if (message.toLowerCase().includes("invalid email")) {
+        return "Try Again";
+    } else if (message.toLowerCase().includes("something went wrong")) {
+        return "Try Again";
+    } else {
+        return "Close";
+    }
+}
+
+async function showModal(message, middleText, buttonText) {
+    // Set the onboarding to be completed
+
+    if (popUpShown) return;
+
+    const shareDiv = document.createElement("div");
+    shareDiv.innerHTML = modalHTML(message, buttonText, middleText);
+    
+    const hidePage = document.createElement("div");
+    hidePage.style.position = "fixed";
+    hidePage.style.zIndex = "9999";
+    hidePage.style.width = "100vw";
+    hidePage.style.height = "100vh";
+    hidePage.style.right = "0";
+    hidePage.style.left = "0";
+    hidePage.style.bottom = "0";
+    hidePage.style.top = "0";
+    hidePage.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+    hidePage.style.backdropFilter = "blur(5px)";
+    hidePage.style.display = "flex";
+    hidePage.style.justifyContent = "center";
+    hidePage.style.alignItems = "center";
+
+
+    document.body.append(hidePage); // Hide the entire view. only show the share
+    document.body.append(shareDiv);
+
+    function onClosePopupModalClick(overlay, container) {
+
+        if (overlay && container) {
+            overlay.remove();
+            container.remove();
+        }
+    }
+    // Get buttons to close
+    const closeModalX = document.getElementById("addy-modal-x-out");
+    const closeModalButton = document.getElementById("addy-modal-confirmation-button");
+    const closeButtons = [closeModalX, closeModalButton];
+    for (let i = 0; i < closeButtons.length; i++) {
+        if (closeButtons[i]) {
+            closeButtons[i].addEventListener("click", async () => {
+                onClosePopupModalClick(hidePage, shareDiv);
+                popUpShown = false;
+            });
+        }
+    }
+    
+    popUpShown = true;
+
+}
+
+function modalHTML(message, buttonText, middleText) {
+    return `
+    <div style="width: 300px; background-color: #FFFFFF; border-radius: 15px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+        <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-between;">
+        <div>
+            <p style="color: #333333; font-size: 17px; font-weight: bold; margin-bottom: 10px;">
+            ${message}
+        </p>
+        </div>
+        <div id="addy-modal-x-out" style="cursor: pointer; width: fit-content; height: fit-content; padding: 5px">
+            <img src="https://i.imgur.com/RWLar5E.png" width="12" height="12"/>
+            
+        </div>
+        </div>
+        
+        <p style="color: #555555; font-size: 12px; margin-bottom: 20px;">
+            ${middleText}
+        </p>
+        <button id="addy-modal-confirmation-button" style="width: 100%; background-color: #AB83EC; color: #FFFFFF; border: none; padding: 10px; border-radius: 20px; font-size: 14px; cursor: pointer;">
+            ${buttonText}
+        </button>
+    </div>`
 }
