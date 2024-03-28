@@ -206,7 +206,7 @@ async function showModal(message, middleText, buttonText) {
     if (popUpShown) return;
 
     const shareDiv = document.createElement("div");
-    shareDiv.style.width = "420px";
+    shareDiv.style.width = "fit-content";
     shareDiv.style.height = "fit-content";
     shareDiv.style.justifyContent = "center";
     shareDiv.style.alignItems = "center";
