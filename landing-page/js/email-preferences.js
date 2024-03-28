@@ -120,8 +120,8 @@ function renderUnsubscribePage(emailPreferences, emailKinds) {
         console.log(emailPreferences);
         // Call updateEmailPreferences to update email preferences
         // Change button text to Saving while request is being processed
-        saveButton.textContent = 'Saving...';
         const previousButtonText = saveButton.textContent;
+        saveButton.textContent = 'Saving...';
         await updateEmailPreferences(uid, emailPreferences);
         saveButton.textContent = previousButtonText;
     });
