@@ -281,7 +281,7 @@ function modalHTML(message, buttonText, middleText) {
         </div>
         </div>
         
-        <p style="color: #555555; font-size: 12px; margin-bottom: 20px;">
+        <p style="color: #555555; font-size: 12px; margin-bottom: 20px; line-height: 17px;">
             ${middleText}
         </p>
         <button id="addy-modal-confirmation-button" style="width: 100%; background-color: #AB83EC; color: #FFFFFF; border: none; padding: 10px; border-radius: 20px; font-size: 14px; cursor: pointer;">
