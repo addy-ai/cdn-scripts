@@ -105,7 +105,8 @@ function renderUnsubscribePage(emailPreferences, emailKinds) {
     const container = document.createElement('div');
     container.classList.add('unsubscribe-container');
 
-    const title = document.createElement('h3');
+    const title = document.createElement('h1');
+    title.style.marginBottom = "30px";
     title.textContent = 'Update your email preferences';
     container.appendChild(title);
 
