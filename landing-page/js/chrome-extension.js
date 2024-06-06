@@ -11,7 +11,12 @@ function reportConversionsToGoogleAds() {
 
     downloadExtensionButtons.forEach(function (button) {
         button.addEventListener("click", () => {
-            gtag_report_conversion();
+            try {
+                gtag_report_conversion();
+            } catch (error) {
+                console.error(error);
+            }
+            
         });
     });
 }
