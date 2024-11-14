@@ -129,7 +129,7 @@ function createModalElements() {
     lenderList.id = 'lender-list';
     lenderList.style.cssText = `
         column-gap: 20px;
-        column-count: 2;
+        column-count: ${lenderListColumns};
     `;
     lenderListContainer.appendChild(lenderList);
     modalMain.appendChild(lenderListContainer);
