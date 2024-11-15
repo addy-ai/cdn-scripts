@@ -77,8 +77,15 @@ function createModalElements() {
     // Sidebar for state filters
     const stateFilters = document.createElement('div');
     stateFilters.id = 'state-filters';
+    
+    let stateFilterWidth = '150px';
+    if (window.matchMedia('(max-width: 800px)').matches) { // For screen size upto 600px
+        stateFilterWidth = '90px';
+    } else {
+        stateFilterWidth = '150px';
+    }
     stateFilters.style.cssText = `
-        width: 150px; padding: 20px; border-right: 1px solid #ddd;
+        width: ${stateFilterWidth}; padding: 20px; border-right: 1px solid #ddd;
         overflow-y: auto; max-height: 100%;
         font-family: Inter;
     `;
@@ -367,8 +374,26 @@ const setColumnCount = () => {
     }
 };
 
-// Use it once at the start to set initial column count
-setColumnCount();
+
+const resizeStateFilter = () => {
+    const stateFilters = document.getElementById('state-filters');
+    if (!stateFilters) return;
+    if (window.matchMedia('(max-width: 800px)').matches) { // For screen size upto 600px
+        stateFilters.style.width = "90px"
+    } else {
+        stateFilters.style.width = "150px"
+    }
+}
+
+function resizeOperations() {
+    setColumnCount();
+    resizeStateFilter();
+}
+
+
+// Run resize operations on page load
+resizeOperations();
+
 
 // Recalculate column count when window is resized
-window.addEventListener('resize', setColumnCount);
+window.addEventListener('resize', resizeOperations);
