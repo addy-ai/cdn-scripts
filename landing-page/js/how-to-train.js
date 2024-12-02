@@ -1,6 +1,6 @@
 function redirectToUtilsRoute() {
     // Construct new url
-    var newUrl = "https://addyai.notion.site/How-to-Train-Addy-AI-ae438a34c38144ddae4f516ee7714ce2";
+    var newUrl = "https://help.addy.so/docs/training/training-your-assistant";
     // Redirect to new url
     window.location.href = newUrl;
 }
