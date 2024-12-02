@@ -1,6 +1,6 @@
 function redirectToUtilsRoute() {
     // Construct new url
-    var newUrl = "https://help.addy.so/docs/training/training-your-assistant";
+    var newUrl = "https://help.addy.so";
     // Redirect to new url
     window.location.href = newUrl;
 }
