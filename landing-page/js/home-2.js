@@ -4,6 +4,8 @@ window.addEventListener("load", function () {
     console.log("Window loaded");
     reportConversionsToGoogleAds();
 
+    handleTestimonialVideo();
+
 });
 
 function reportConversionsToGoogleAds() {
