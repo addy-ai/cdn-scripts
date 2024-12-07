@@ -4,8 +4,6 @@ window.addEventListener("load", function () {
     console.log("Window loaded");
     reportConversionsToGoogleAds();
 
-    handleTestimonialVideo();
-
 });
 
 function reportConversionsToGoogleAds() {
@@ -26,42 +24,3 @@ function reportConversionsToGoogleAds() {
         });
     });
 }
-
-
-function handleTestimonialVideo() {
-    const playButton = document.getElementById("home-testimonial-play-button");
-    const thumbnail = document.getElementById("home-testimonial-thumbnail");
-
-    if (playButton) {
-        playButton.addEventListener("click", togglePlayTestimonialVideo(playButton, thumbnail))
-    }
-
-    if (thumbnail) {
-        thumbnail.addEventListener("click", togglePlayTestimonialVideo(playButton, thumbnail))
-    }
-}
-
-function togglePlayTestimonialVideo(playButton, thumbnail) {
-    // hide the two elements
-    if (playButton) playButton.style.display = "none";
-    if (thumbnail) thumbnail.style.display = "none";
-
-    var style = document.createElement('style');
-
-    // Add CSS rules for hiding the play button and thumbnail
-    style.innerHTML = '#home-testimonial-play-button, #home-testimonial-thumbnail { display: none; }';
-    document.head.appendChild(style);
-
-    // get the video element
-    var video = document.querySelector("#home-testimonial-video video");
-
-    // enable the controls and start playing the video
-    if (video) {
-      video.controls = true;
-      video.muted = false;
-      video.play();
-    } else {
-      console.warn("Could not find a video element in #home-testimonial-video");
-    }
-}
-
