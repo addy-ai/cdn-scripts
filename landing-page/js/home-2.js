@@ -31,18 +31,18 @@ function handleTestimonialVideo() {
     const thumbnail = document.getElementById("home-testimonial-thumbnail");
 
     if (playButton) {
-        playButton.addEventListener("click", togglePlayTestimonialVideo)
+        playButton.addEventListener("click", togglePlayTestimonialVideo(playButton, thumbnail))
     }
 
     if (thumbnail) {
-        thumbnail.addEventListener("click", togglePlayTestimonialVideo)
+        thumbnail.addEventListener("click", togglePlayTestimonialVideo(playButton, thumbnail))
     }
 }
 
 function togglePlayTestimonialVideo(playButton, thumbnail) {
     // hide the two elements
-    playButton.style.display = "none";
-    thumbnail.style.display = "none";
+    if (playButton) playButton.style.display = "none";
+    if (thumbnail) thumbnail.style.display = "none";
 
     var style = document.createElement('style');
 
