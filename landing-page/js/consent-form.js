@@ -382,10 +382,17 @@
         }
     }
 
-    // Initialize form when DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', createConsentForm);
-    } else {
-        createConsentForm();
-    }
+    // Initialize form when window is loaded
+    window.addEventListener('load', function() {
+        console.log('Window loaded, checking for consent-form div...');
+        
+        const formContainer = document.getElementById('consent-form');
+        if (formContainer) {
+            console.log('✅ Consent form container found:', formContainer);
+            createConsentForm();
+        } else {
+            console.log('❌ Consent form container NOT found');
+            console.log('Available elements with IDs:', Array.from(document.querySelectorAll('[id]')).map(el => el.id));
+        }
+    });
 })();
