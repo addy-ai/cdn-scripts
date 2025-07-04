@@ -88,8 +88,7 @@
                             <input type="checkbox" id="consent" name="consent" required>
                             <span class="checkmark"></span>
                             <span class="consent-text">
-                                I agree to receive loan status updates from Addy at the phone number or email I provided. 
-                                Data rates may apply, and I can reply STOP to opt out.
+                                I agree to receive automated SMS updates from Addy. Message frequency varies. Message & data rates may apply. Text STOP to opt-out.
                                 <a href="/privacy-policy" target="_blank">Privacy Policy</a> and 
                                 <a href="/terms-of-service" target="_blank">Terms of Service</a>.
                             </span>
