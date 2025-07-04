@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Inter;
+        }
+
+        .text-input-container {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 16px;
+            border-radius: 50%;
+            gap: 5px;
+        }
+
+        .text-input-label {
+            margin-bottom: 4px;
+            color: #4B5563;
+            /* Slightly gray text */
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .text-input-field {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 15px !important;
+            box-sizing: border-box;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            background-color: #EEF1F5
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="text-input-container">
+        <label for="" class="text-input-label">Loan Amount</label>
+        <input type="text" id="textInput" class="text-input-field" placeholder="" />
+    </div>
+
+    <script>
+        function handleTextInputChange(event) {
+            const textValue = event.target.value;
+            updateAnswer(textValue);
+        }
+
+        function updateAnswer(answer) {
+            const customEvent = new CustomEvent("answerSelected", {
+                detail: {
+                    question: "Title",
+                    answer: answer
+                }
+            });
+            dispatchEventSafely(customEvent);
+        }
+
+        function dispatchEventSafely(event) {
+            try {
+                if (window.parent && window.parent !== window) {
+                    window.parent.document.dispatchEvent(event);
+                } else {
+                    window.document.dispatchEvent(event);
+                }
+            } catch (error) {
+                window.document.dispatchEvent(event);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const inputField = document.getElementById('textInput');
+            inputField.addEventListener('input', handleTextInputChange);
+        });
+    </script>
+</body>
+
+
+
+</html>
