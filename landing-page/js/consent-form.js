@@ -62,7 +62,7 @@
         const formHTML = `
             <div class="consent-form-wrapper">
                 <form id="addy-consent-form" class="consent-form">
-                    <h2 class="form-title">Addy Consent Form</h2>
+                    <h2 class="form-title">SMS/Text Messaging Consent</h2>
                     <div class="form-group">
                         <label for="firstName">First Name *</label>
                         <input type="text" id="firstName" name="firstName" required>
