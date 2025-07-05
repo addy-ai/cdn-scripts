@@ -89,8 +89,8 @@
                             <span class="checkmark"></span>
                             <span class="consent-text">
                                 I agree to receive automated SMS updates from Addy. Message frequency varies. Message & data rates may apply. Text STOP to opt-out.
-                                <a href="/privacy-policy" target="_blank">Privacy Policy</a> and 
-                                <a href="/terms-of-service" target="_blank">Terms of Service</a>.
+                                <a href="/privacypolicy" target="_blank">Privacy Policy</a> and 
+                                <a href="/termsofservice" target="_blank">Terms of Service</a>.
                             </span>
                         </label>
                     </div>
