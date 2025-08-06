@@ -15,12 +15,11 @@
 
     // Parse URL parameters
     const urlParams = new URLSearchParams(window.location.search);
-    const organizationId = urlParams.get('orgId');
     const contactId = urlParams.get('contactId');
 
     // Validate required parameters
-    if (!organizationId || !contactId) {
-        console.error('Missing required URL parameters: orgId and contactId');
+    if (!contactId) {
+        console.error('Missing required URL parameter: contactId');
         // Show error message to the user
         const formContainer = document.getElementById('consent-form');
         if (formContainer) {
@@ -36,14 +35,14 @@
 
     // Add contact info loading function
     async function loadContactInfo() {
-        if (!organizationId || !contactId) {
-            console.log('Missing org/contact IDs, skipping pre-population');
+        if (!contactId) {
+            console.log('Missing contactId, skipping pre-population');
             return null;
         }
         
         try {
             const response = await fetch(
-                `http://localhost:8080/api/user/contact-info?orgId=${organizationId}&contactId=${contactId}`
+                `http://localhost:8080/api/user/contact-info?contactId=${contactId}`
             );
             
             if (!response.ok) {
@@ -115,7 +114,10 @@
         const formHTML = `
             <div class="consent-form-wrapper">
                 <form id="addy-consent-form" class="consent-form">
-                    <h2 class="form-title">Text, SMS, and Calling (including AI)</h2>
+                    <h2 class="form-title">
+                        Consent to Receive Text, SMS, and Telephone Communications Including AI-Assisted Technology
+                        <span class="info-tooltip" title="By granting this consent, you authorize our organization to contact you via text message, SMS, or telephone, which may utilize AI-assisted technology, for the purpose of delivering service updates, account notifications, and other communications relevant to our relationship with you. Standard message and data rates may apply. You may revoke this consent at any time by following the opt-out instructions provided.">ℹ️</span>
+                    </h2>
                     <div class="form-group">
                         <label for="firstName">First Name *</label>
                         <input type="text" id="firstName" name="firstName" required 
@@ -179,8 +181,19 @@
                     text-align: center;
                     color: #333;
                     margin-bottom: 25px;
-                    font-size: 24px;
+                    font-size: 20px;
                     font-weight: 600;
+                    line-height: 1.3;
+                    position: relative;
+                }
+                
+                .info-tooltip {
+                    display: inline-block;
+                    margin-left: 8px;
+                    font-size: 16px;
+                    color: #745dde;
+                    cursor: help;
+                    vertical-align: middle;
                 }
                 
                 .form-group {
@@ -470,8 +483,10 @@
 
         // Pre-populate consent toggles if contact has existing consent
         if (contactInfo) {
-            // Support both phoneConsent and callConsent keys from backend
-            contactInfo.callConsent = contactInfo.callConsent !== undefined ? contactInfo.callConsent : contactInfo.phoneConsent;
+            // callConsent provided by backend; assume false if undefined
+            if (typeof contactInfo.callConsent === 'undefined') {
+                contactInfo.callConsent = false;
+            }
         }
 
         // Pre-populate consent toggles if contact has existing consent
@@ -655,7 +670,6 @@
             
             // Collect form data - Updated to match backend expectations
             const formData = {
-                organizationId: organizationId,  // From URL
                 contactId: contactId,            // From URL
                 firstName: document.getElementById('firstName').value.trim(),
                 lastName: document.getElementById('lastName').value.trim(),
@@ -719,9 +733,7 @@
                                 ].filter(Boolean).join(', ')}</span>
                             </div>
                         </div>
-                        <div class="success-actions">
-                            <a href="https://devmail.addy.so/contacts/${contactId}/details" class="return-app-btn" target="_blank">Return to Addy Application</a>
-                        </div>
+
                     </div>
                 `;
 
