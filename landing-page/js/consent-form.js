@@ -115,8 +115,8 @@
             <div class="consent-form-wrapper">
                 <form id="addy-consent-form" class="consent-form">
                     <h2 class="form-title">
-                        Consent to Receive Text, SMS, and Telephone Communications Including AI-Assisted Technology
-                        <span class="info-tooltip" title="By granting this consent, you authorize our organization to contact you via text message, SMS, or telephone, which may utilize AI-assisted technology, for the purpose of delivering service updates, account notifications, and other communications relevant to our relationship with you. Standard message and data rates may apply. You may revoke this consent at any time by following the opt-out instructions provided.">ℹ️</span>
+                        Consent to receive call, text or email from AI-assisted technology
+                        
                     </h2>
                     <div class="form-group">
                         <label for="firstName">First Name *</label>
