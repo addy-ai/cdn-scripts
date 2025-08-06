@@ -684,8 +684,8 @@
             };
             
             // Make API call to the specified endpoint
-            // fetch('https://us-central1-addy-ai-dev.cloudfunctions.net/api/user/consent-form', {
-            fetch('http://localhost:8080/api/user/consent-form', {
+            fetch('https://us-central1-addy-ai-dev.cloudfunctions.net/api/user/consent-form', {
+            // fetch('http://localhost:8080/api/user/consent-form', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
