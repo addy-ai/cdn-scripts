@@ -41,9 +41,7 @@
         }
         
         try {
-            const response = await fetch(
-                `http://localhost:8080/api/user/contact-info?contactId=${contactId}`
-            );
+            const response = await fetch(`https://us-central1-addy-ai-dev.cloudfunctions.net/api/user/contact-info?contactId=${contactId}`);
             
             if (!response.ok) {
                 console.log('Contact not found or error loading contact info');
