@@ -13,6 +13,21 @@
 (function() {
     'use strict';
 
+    // Dynamic API endpoint configuration based on environment
+    const getApiEndpoint = () => {
+        const hostname = window.location.hostname;
+        
+        // Local development
+        if (hostname === 'localhost') {
+            return 'http://localhost:8080/api';
+        } if (hostname === 'devmail.addy.so') {
+            return 'https://us-central1-addy-ai-dev.cloudfunctions.net/api';
+        }
+        return 'https://us-central1-hey-addy-chatgpt.cloudfunctions.net/api';
+    };
+
+    const API_ENDPOINT = getApiEndpoint();
+
     // Parse URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const contactId = urlParams.get('contactId');
@@ -41,7 +56,7 @@
         }
         
         try {
-            const response = await fetch(`https://us-central1-addy-ai-dev.cloudfunctions.net/api/user/contact-info?contactId=${contactId}`);
+            const response = await fetch(`${API_ENDPOINT}/user/contact-info?contactId=${contactId}`);
             
             if (!response.ok) {
                 console.log('Contact not found or error loading contact info');
@@ -682,8 +697,7 @@
             };
             
             // Make API call to the specified endpoint
-            fetch('https://us-central1-addy-ai-dev.cloudfunctions.net/api/user/consent-form', {
-            // fetch('http://localhost:8080/api/user/consent-form', {
+            fetch(`${API_ENDPOINT}/user/consent-form`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
