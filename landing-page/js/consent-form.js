@@ -120,6 +120,53 @@
             console.error('Consent form container not found');
             return;
         }
+        
+        // Show a lightweight loading placeholder immediately
+        if (!document.querySelector('#consent-loading-styles')) {
+            const loadingStyle = document.createElement('style');
+            loadingStyle.id = 'consent-loading-styles';
+            loadingStyle.textContent = `
+                .consent-loading {
+                    max-width: 500px;
+                    margin: 0 auto;
+                    padding: 40px 20px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    color: #6B7280;
+                    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                    text-align: center;
+                }
+                .consent-spinner {
+                    width: 28px;
+                    height: 28px;
+                    border: 3px solid #e5e7eb;
+                    border-top-color: #745dde;
+                    border-radius: 50%;
+                    animation: consent-spin 1s linear infinite;
+                    margin-bottom: 12px;
+                }
+                .consent-loading-text {
+                    font-size: 16px;
+                }
+                .consent-loading-subtext {
+                    font-size: 14px;
+                    color: #9CA3AF;
+                    margin-top: 4px;
+                }
+                @keyframes consent-spin { to { transform: rotate(360deg); } }
+            `;
+            document.head.appendChild(loadingStyle);
+        }
+
+        formContainer.innerHTML = `
+            <div class="consent-loading" aria-live="polite" role="status">
+                <div class="consent-spinner" aria-hidden="true"></div>
+                <p class="consent-loading-text">Preparing your consent form...</p>
+                <p class="consent-loading-subtext">This may take a few seconds.</p>
+            </div>
+        `;
 
         // Load existing contact info
         const contactInfo = await loadContactInfo();
@@ -745,7 +792,9 @@
                                 ].filter(Boolean).join(', ')}</span>
                             </div>
                         </div>
-
+                        <div class="success-actions">
+                            <p class="close-note">You’re all set. You can now close this tab or window.</p>
+                        </div>
                     </div>
                 `;
 
@@ -830,6 +879,12 @@
                             flex-direction: column;
                             gap: 15px;
                         }
+                        .close-note {
+                            color: #6B7280;
+                            font-size: 16px;
+                            line-height: 1.6;
+                            margin: 0;
+                        }
                         .return-app-btn {
                             background: #745dde;
                             color: white;
@@ -847,20 +902,7 @@
                             background: #5a47b8;
                             text-decoration: none;
                         }
-                        .success-close-btn {
-                            background: #745dde;
-                            color: white;
-                            border: none;
-                            padding: 12px 30px;
-                            border-radius: 15px;
-                            font-size: 16px;
-                            font-weight: 500;
-                            cursor: pointer;
-                            transition: background-color 0.3s ease;
-                        }
-                        .success-close-btn:hover {
-                            background: #5a47b8;
-                        }
+                        
                     `;
                     document.head.appendChild(successStyle);
                 }
