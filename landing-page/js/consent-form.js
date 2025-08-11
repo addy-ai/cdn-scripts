@@ -13,24 +13,22 @@
 (function() {
     'use strict';
 
+        // Parse URL parameters once for reuse
+        const urlParams = new URLSearchParams(window.location.search);
+        const envParam = (urlParams.get('env') || '').trim().toLowerCase();
+        const rawContactId = urlParams.get('contactId') || '';
+        const contactId = rawContactId.split(/[?&#\s]/)[0] || null;
+
     // Dynamic API endpoint configuration based on environment
     const getApiEndpoint = () => {
-        const hostname = window.location.hostname;
-        
-        // Local development
-        if (hostname === 'localhost') {
-            return 'http://localhost:8080/api';
-        } if (hostname === 'devmail.addy.so') {
-            return 'https://us-central1-addy-ai-dev.cloudfunctions.net/api';
-        }
-        return 'https://us-central1-hey-addy-chatgpt.cloudfunctions.net/api';
-    };
+            // Use dev API only when URL contains ?env=dev
+            if (envParam === 'dev') {
+                return 'https://us-central1-addy-ai-dev.cloudfunctions.net/api';
+            }
+            return 'https://us-central1-hey-addy-chatgpt.cloudfunctions.net/api';
+        };
 
     const API_ENDPOINT = getApiEndpoint();
-
-    // Parse URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const contactId = urlParams.get('contactId');
 
     // Validate required parameters
     if (!contactId) {
