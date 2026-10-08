@@ -18,6 +18,8 @@
         const envParam = (urlParams.get('env') || '').trim().toLowerCase();
         const rawContactId = urlParams.get('contactId') || '';
         const contactId = rawContactId.split(/[?&#\s]/)[0] || null;
+        const rawOrgId = urlParams.get('orgId') || '';
+        const orgId = rawOrgId.split(/[?&#\s]/)[0] || null;
 
     // Dynamic API endpoint configuration based on environment
     const getApiEndpoint = () => {
@@ -54,7 +56,9 @@
         }
         
         try {
-            const response = await fetch(`${API_ENDPOINT}/user/contact-info?contactId=${contactId}`);
+            // Without orgId the API scans every organization for the contact, which is slow.
+            const orgParam = orgId ? `&orgId=${encodeURIComponent(orgId)}` : '';
+            const response = await fetch(`${API_ENDPOINT}/user/contact-info?contactId=${contactId}${orgParam}`);
             
             if (!response.ok) {
                 console.log('Contact not found or error loading contact info');
@@ -729,6 +733,7 @@
             // Collect form data - Updated to match backend expectations
             const formData = {
                 contactId: contactId,            // From URL
+                organizationId: orgId,           // From URL
                 firstName: document.getElementById('firstName').value.trim(),
                 lastName: document.getElementById('lastName').value.trim(),
                 email: document.getElementById('email').value.trim(),
